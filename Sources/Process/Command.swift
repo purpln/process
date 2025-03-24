@@ -18,7 +18,9 @@ public func result(command: String, arguments: [String] = [], environment: [Stri
         try setCurrentDirectory(path)
     }
     
-    let environment = standart(environment: environment)
+    let environment = environment.reduce(into: [String]()) { result, element in
+        result.append("\(element.key)=\(element.value)")
+    }
     
     let output = try FileDescriptor.pipe()
     let error = try FileDescriptor.pipe()
@@ -52,13 +54,6 @@ public func result(command: String, arguments: [String] = [], environment: [Stri
     }
     
     return logs
-}
-
-private func standart(environment values: [String: String]) -> [String] {
-    environment.merging(values) { current, new in current }
-        .reduce(into: [String]()) { result, element in
-            result.append("\(element.key)=\(element.value)")
-        }
 }
 
 extension FileDescriptor {
