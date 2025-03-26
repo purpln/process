@@ -58,7 +58,7 @@ public extension Process.Status {
 }
 
 public extension Process {
-    func wait() throws -> Status {
+    func wait() throws(Errno) -> Status {
         var value: CInt = 0
         try nothingOrErrno(retryOnInterrupt: true, {
             waitpid(pid, &value, 0)
