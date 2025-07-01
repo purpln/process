@@ -1,4 +1,5 @@
 import LibC
+import TinyFoundation
 
 public extension Process {
     static func spawn(arguments: [String], environment: [String], actions array: [Action]) throws -> Process {

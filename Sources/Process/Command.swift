@@ -1,23 +1,20 @@
 import LibC
+import TinyFoundation
 
-public func process(command: String, arguments: String..., environment: [String: String] = [:], path: String? = nil) throws {
-    try process(command: command, arguments: Array(arguments), environment: environment, path: path)
+public func process(command: String, arguments: String..., environment: [String: String] = [:]) throws {
+    try process(command: command, arguments: Array(arguments), environment: environment)
 }
 
-public func process(command: String, arguments: [String] = [], environment: [String: String] = [:], path: String? = nil) throws {
-    try result(command: command, arguments: arguments, environment: environment, path: path, stream: true)
+public func process(command: String, arguments: [String] = [], environment: [String: String] = [:]) throws {
+    try result(command: command, arguments: arguments, environment: environment, stream: true)
 }
 
-public func result(command: String, arguments: String..., environment: [String: String] = [:], path: String? = nil) throws -> String {
-    try result(command: command, arguments: Array(arguments), environment: environment, path: path)
+public func result(command: String, arguments: String..., environment: [String: String] = [:]) throws -> String {
+    try result(command: command, arguments: Array(arguments), environment: environment)
 }
 
 @discardableResult
-public func result(command: String, arguments: [String] = [], environment: [String: String] = [:], path: String? = nil, stream: Bool = false) throws -> String {
-    if let path = path {
-        try setCurrentDirectory(path)
-    }
-    
+public func result(command: String, arguments: [String] = [], environment: [String: String] = [:], stream: Bool = false) throws -> String {
     let environment = environment.reduce(into: [String]()) { result, element in
         result.append("\(element.key)=\(element.value)")
     }

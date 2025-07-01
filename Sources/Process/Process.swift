@@ -1,4 +1,5 @@
 import LibC
+import TinyFoundation
 
 public struct Process {
     public let pid: pid_t
